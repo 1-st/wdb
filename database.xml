@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<db>
+    <words>
+        <word>
+            <id>apple</id>
+            <explains>
+                <value>苹果 n.C</value>
+            </explains>
+            <views>
+                <at>2020/5/18 12:00:00</at>
+                <at>2020/5/18 12:05:12</at>
+            </views>
+            <time>4</time>
+            <ok>false</ok>
+        </word>
+        <word>
+            <id>abandon</id>
+            <explains>
+                <value>放弃 v.</value>
+            </explains>
+            <views>
+                <at>2020/5/18 12:00:00</at>
+                <at>2020/5/18 12:05:12</at>
+            </views>
+            <time>2</time>
+            <ok>false</ok>
+        </word>
+    </words>
+    <phrases>
+        <phrase>
+            <id>yield to</id>
+            <explains>
+                <value>对…屈服,投降,让步,顺从</value>
+            </explains>
+            <views>
+                <at>2020/5/18 12:00:00</at>
+                <at>2020/5/18 12:05:12</at>
+            </views>
+            <time>2</time>
+            <ok>false</ok>
+        </phrase>
+        <phrase>
+            <id>be worthy to</id>
+            <explains>
+                <value>值得,够得上, 配得上</value>
+            </explains>
+        </phrase>
+    </phrases>
+</db>
