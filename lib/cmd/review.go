@@ -69,8 +69,12 @@ func RunReview(str string) {
 }
 
 func AfterEnter(word string) {
+	fmt.Println()
+	fmt.Println()
+	fmt.Println(word)
+	fmt.Println()
 	fmt.Println(GetMeaning(word))
-	for i := 0; i < 5; i++ {
+	for i := 0; i < 4; i++ {
 		fmt.Println()
 	}
 	serve.SaveDB()
