@@ -19,21 +19,26 @@ func init(){
 		}
 }
 
-func Save(){
+func SaveDB()bool{
 	origin,err:= ioutil.ReadFile("./database.xml")
 	if err!=nil{
-		log.Fatalln("原始数据库不能读取!")
+		log.Println("原始数据库不能读取!")
+		return false
 	}
 	if err := os.Remove("./database.xml");err!=nil{
 		log.Fatalln("原始数据库不能删除!")
+		return false
 	}
 	f,err:= os.Create("./database.xml")
 	if err!=nil{
 		ioutil.WriteFile("./database.xml",origin,0777)
-		log.Fatalln("不能创建新数据库文件!")
+		log.Println("不能创建新数据库文件!")
+		return false
 	}
 	e:=xml.NewEncoder(f)
 	if err:=e.Encode(DB);err!=nil{
-		log.Fatalln("反序列化数据库失败!")
+		log.Println("反序列化数据库失败!")
+		return false
 	}
+	return true
 }

@@ -1,16 +1,16 @@
-package serve
+package constant
 
 import "encoding/xml"
 
 type Cat struct {
 	XMLName xml.Name `xml:"at,omitempty" json:"at,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
+	String  string   `xml:",chardata" json:",omitempty"`
 }
 
 type Cdb struct {
-	XMLName    xml.Name    `xml:"db,omitempty" json:"db,omitempty"`
-	Cphrases   *Cphrases   `xml:"phrases,omitempty" json:"phrases,omitempty"`
-	Cwords     *Cwords     `xml:"words,omitempty" json:"words,omitempty"`
+	XMLName    xml.Name  `xml:"db,omitempty" json:"db,omitempty"`
+	Cphrases   *Cphrases `xml:"phrases,omitempty" json:"phrases,omitempty"`
+	Cwords     *Cwords   `xml:"words,omitempty" json:"words,omitempty"`
 }
 
 type Cphrases struct {
@@ -20,12 +20,12 @@ type Cphrases struct {
 
 type Cexplains struct {
 	XMLName xml.Name `xml:"explains,omitempty" json:"explains,omitempty"`
-	Cvalue  *Cvalue  `xml:"value,omitempty" json:"value,omitempty"`
+	String string `xml:",chardata" json:",omitempty"`
 }
 
 type Cok struct {
 	XMLName xml.Name `xml:"ok,omitempty" json:"ok,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
+	String  string   `xml:",chardata" json:",omitempty"`
 }
 
 type Csentence struct {
@@ -35,12 +35,12 @@ type Csentence struct {
 	Ctranslated *Ctranslated `xml:"translated,omitempty" json:"translated,omitempty"`
 }
 
+
 type Cphrase struct {
 	XMLName xml.Name     `xml:"phrase,omitempty" json:"phrase,omitempty"`
 	Cexplains *Cexplains `xml:"explains,omitempty" json:"explains,omitempty"`
 	Cid *Cid             `xml:"id,omitempty" json:"id,omitempty"`
 	Cok *Cok             `xml:"ok,omitempty" json:"ok,omitempty"`
-	Ctime *Ctime         `xml:"time,omitempty" json:"time,omitempty"`
 	Cviews *Cviews       `xml:"views,omitempty" json:"views,omitempty"`
 }
 
@@ -49,19 +49,9 @@ type Csentences struct {
 	Csentence []*Csentence `xml:"sentence,omitempty" json:"sentence,omitempty"`
 }
 
-type Ctime struct {
-	XMLName xml.Name `xml:"time,omitempty" json:"time,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
-}
-
 type Ctranslated struct {
 	XMLName xml.Name `xml:"translated,omitempty" json:"translated,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
-}
-
-type Cvalue struct {
-	XMLName xml.Name `xml:"value,omitempty" json:"value,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
+	String  string   `xml:",chardata" json:",omitempty"`
 }
 
 type Cviews struct {
@@ -70,12 +60,10 @@ type Cviews struct {
 }
 
 type Cword struct {
-	XMLName   xml.Name   `xml:"word,omitempty" json:"word,omitempty"`
-	Cexplains *Cexplains `xml:"explains,omitempty" json:"explains,omitempty"`
-	Cid       *Cid       `xml:"id,omitempty" json:"id,omitempty"`
-	Cok       *Cok       `xml:"ok,omitempty" json:"ok,omitempty"`
-	Ctime     *Ctime     `xml:"time,omitempty" json:"time,omitempty"`
-	Cviews    *Cviews    `xml:"views,omitempty" json:"views,omitempty"`
+	XMLName   xml.Name `xml:"word,omitempty" json:"word,omitempty"`
+	Cid       *Cid     `xml:"id,omitempty" json:"id,omitempty"`
+	Cok       *Cok     `xml:"ok,omitempty" json:"ok,omitempty"`
+	Cviews    *Cviews  `xml:"views,omitempty" json:"views,omitempty"`
 }
 
 type Cwords struct {
@@ -112,27 +100,27 @@ type Cconfig struct {
 
 type Cescapes struct {
 	XMLName xml.Name `xml:"escapes,omitempty" json:"escapes,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
+	String  string   `xml:",chardata" json:",omitempty"`
 }
 
 type Cexplain struct {
 	XMLName xml.Name `xml:"explain,omitempty" json:"explain,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
+	String  string   `xml:",chardata" json:",omitempty"`
 }
 
 type Cid struct {
 	XMLName xml.Name `xml:"id,omitempty" json:"id,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
+	String  string   `xml:",chardata" json:",omitempty"`
 }
 
 type Cmax_dash_similar_dash_words struct {
 	XMLName xml.Name `xml:"max-similar-words,omitempty" json:"max-similar-words,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
+	String  string   `xml:",chardata" json:",omitempty"`
 }
 
 type Cmax_dash_view_dash_record struct {
 	XMLName xml.Name `xml:"max-view-record,omitempty" json:"max-view-record,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
+	String  string   `xml:",chardata" json:",omitempty"`
 }
 
 type Cprefix struct {
@@ -143,12 +131,12 @@ type Cprefix struct {
 
 type Csimilar_dash_word_dash_threshold_dash_diff struct {
 	XMLName xml.Name `xml:"similar-word-threshold-diff,omitempty" json:"similar-word-threshold-diff,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
+	String  string   `xml:",chardata" json:",omitempty"`
 }
 
 type Csimilar_dash_word_dash_threshold_dash_network struct {
 	XMLName xml.Name `xml:"similar-word-threshold-network,omitempty" json:"similar-word-threshold-network,omitempty"`
-	string  string   `xml:",chardata" json:",omitempty"`
+	String  string   `xml:",chardata" json:",omitempty"`
 }
 
 type Csuffixes struct {

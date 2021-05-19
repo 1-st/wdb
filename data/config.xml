@@ -2,8 +2,8 @@
 <body>
     <config>
         <max-similar-words>10</max-similar-words>
-        <similar-word-threshold-network>0.7</similar-word-threshold-network>
-        <similar-word-threshold-diff>0.85</similar-word-threshold-diff>
+        <similar-word-threshold-network>0.3</similar-word-threshold-network>
+        <similar-word-threshold-diff>0.83</similar-word-threshold-diff>
         <max-view-record>15</max-view-record>
     </config>
     <affix>

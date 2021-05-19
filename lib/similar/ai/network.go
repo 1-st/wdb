@@ -1,4 +1,4 @@
-package similar
+package ai
 
 import (
 	"fmt"
@@ -10,12 +10,21 @@ import (
 
 func init() {
 	fmt.Println("加载Word2vec模型中......")
-	r, _ := os.Open("./data/GoogleNews-vectors-negative300.bin")
-	var err error
+	mod := ""
+	if os.Getenv("WDB_MODEL") == "" {
+		mod = "./data/GoogleNews-vectors-negative300.bin"
+	} else {
+		mod = os.Getenv("WDB_MODEL")
+	}
+	r, err := os.Open(mod)
+	if err != nil {
+		log.Printf("未找到模型: %v\n", err)
+		return
+	}
 	// Load the model from an io.Reader (i.e. a file).
 	serve.Model, err = word2vec.FromReader(r)
 	if err != nil {
-		log.Fatalf("模型出错: %v", err)
+		log.Printf("未能加载模型: %v\n", err)
 	}
 	log.Println("加载Word2vec模型成功!")
 }
@@ -30,4 +39,16 @@ func GetNetworkSimilarity(a, b string) (float32, error) {
 		return -1, err
 	}
 	return sim, nil
+}
+
+func GetSimilarity(str string, n int) []word2vec.Match {
+	e := word2vec.Expr{}
+	e.Add(1, str)
+	m, err := serve.Model.CosN(e, n)
+	if err != nil {
+		fmt.Println("Model.CosN error")
+		return nil
+	} else {
+		return m
+	}
 }

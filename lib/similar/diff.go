@@ -60,5 +60,10 @@ func GetDiffSimilarity(a, b string) (float32, error) {
 	if len(a) >= MaxWordLen || len(b) >= MaxWordLen {
 		return -1, errors.New("the word is too long")
 	}
-	return float32(len(LCS(a, b))) / float32(len(a)), nil
+	if len(a) > len(b) {
+		return float32(len(LCS(a, b))) / float32(len(a)), nil
+	} else {
+		return float32(len(LCS(a, b))) / float32(len(b)), nil
+	}
+
 }

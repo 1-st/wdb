@@ -1,14 +1,23 @@
 package serve
 
 import (
+	"fmt"
 	"github.com/dyatlov/gostardict/stardict"
+	"os"
 )
 
-func main() {
+func init() {
 	var err error
 	// init dictionary with path to dictionary files and name of dictionary
-	Dict, err = stardict.NewDictionary("./stardict-oxford-gb-2.4.2.tar.bz2", "oxford")
+	dict:= ""
+	if os.Getenv("WDB_DICT")==""{
+		dict = "./data/stardict-langdao-ec-gb-2.4.2"
+	}else{
+		dict = os.Getenv("WDB_DICT")
+	}
+	Dict, err = stardict.NewDictionary(dict, "langdao-ec-gb")
 	if err != nil {
+		fmt.Println("不能读取词典!"+dict)
 		panic(err)
 	}
 }

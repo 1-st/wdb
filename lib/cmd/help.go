@@ -1,10 +1,7 @@
 package cmd
 
-import (
-	"io"
-	"wdb/lib/serve"
-)
+import "wdb/lib/serve"
 
-func  RunHelp(str string,out io.Writer){
-	serve.PrintHelp(out)
+func  RunHelp(str string){
+	serve.PrintHelp()
 }
