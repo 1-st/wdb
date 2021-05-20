@@ -2,10 +2,12 @@ package stardict
 
 import (
 	"compress/gzip"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
 	"strings"
+	embed2 "wdb/lib/embed"
 )
 
 // Dict implements in-memory dictionary
@@ -19,25 +21,32 @@ func (d Dict) GetSequence(offset uint64, size uint64) []byte {
 }
 
 // ReadDict reads dictionary into memory
-func ReadDict(filename string, info *Info) (dict *Dict, err error) {
-	reader, err := os.Open(filename)
-
-	if err != nil {
-		return
-	}
-
-	defer reader.Close()
+func ReadDict(filename string, info *Info, embed bool) (dict *Dict, err error) {
 
 	var r io.Reader
 
-	if strings.HasSuffix(filename, ".dz") { // if file is compressed then read it from archive
-		r, err = gzip.NewReader(reader)
+	if !embed {
+		reader, err := os.Open(filename)
+		if err != nil {
+			fmt.Println(err)
+		}
+		defer reader.Close()
+		if strings.HasSuffix(filename, ".dz") { // if file is compressed then read it from archive
+			r, err = gzip.NewReader(reader)
+		} else {
+			r = reader
+		}
 	} else {
-		r = reader
-	}
-
-	if err != nil {
-		return
+		reader, err := embed2.Assets().Open(filename)
+		if err != nil {
+			fmt.Println(err)
+		}
+		defer reader.Close()
+		if strings.HasSuffix(filename, ".dz") { // if file is compressed then read it from archive
+			r, err = gzip.NewReader(reader)
+		} else {
+			r = reader
+		}
 	}
 
 	buffer, err := ioutil.ReadAll(r)

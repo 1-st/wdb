@@ -3,9 +3,11 @@ package stardict
 import (
 	"bufio"
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"strings"
+	embed2 "wdb/lib/embed"
 )
 
 // Info contains dictionary options
@@ -26,15 +28,23 @@ func decodeOption(str string) (key string, value string, err error) {
 }
 
 // ReadInfo reads ifo file and collects dictionary options
-func ReadInfo(filename string) (info *Info, err error) {
-	reader, err := os.Open(filename)
-	if err != nil {
-		return
+func ReadInfo(filename string, embed bool) (info *Info, err error) {
+	var r *bufio.Reader
+
+	if !embed {
+		file, err := os.Open(filename)
+		if err != nil {
+			fmt.Println(err)
+		}
+		r = bufio.NewReader(file)
+		defer file.Close()
+	} else {
+		fs, err := embed2.Assets().Open(filename)
+		if err != nil {
+			fmt.Println(err)
+		}
+		r = bufio.NewReader(fs)
 	}
-
-	defer reader.Close()
-
-	r := bufio.NewReader(reader)
 
 	_, err = r.ReadString('\n')
 

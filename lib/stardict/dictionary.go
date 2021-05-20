@@ -157,19 +157,60 @@ func NewDictionary(path string, name string) (*Dictionary, error) {
 		dictPath = dictDzPath
 	}
 
-	info, err := ReadInfo(infoPath)
+	info, err := ReadInfo(infoPath, false)
 
 	if err != nil {
 		return nil, err
 	}
 
-	idx, err := ReadIndex(idxPath, info)
+	idx, err := ReadIndex(idxPath, info, false)
 
 	if err != nil {
 		return nil, err
 	}
 
-	dict, err := ReadDict(dictPath, info)
+	dict, err := ReadDict(dictPath, info, false)
+
+	if err != nil {
+		return nil, err
+	}
+
+	d.info = info
+	d.idx = idx
+	d.dict = dict
+
+	return d, nil
+}
+
+// NewDictionary returns a new Dictionary
+// path - path to dictionary files
+// name - name of dictionary to parse
+func NewDictionaryFromAssets(path string, name string) (*Dictionary, error) {
+	d := new(Dictionary)
+
+	path = filepath.Clean(path)
+
+	dictDzPath := filepath.Join(path, name+".dict.dz")
+	dictPath := filepath.Join(path, name+".dict")
+
+	idxPath := filepath.Join(path, name+".idx")
+	infoPath := filepath.Join(path, name+".ifo")
+
+	dictPath = dictDzPath
+
+	info, err := ReadInfo(infoPath, true)
+
+	if err != nil {
+		return nil, err
+	}
+
+	idx, err := ReadIndex(idxPath, info, true)
+
+	if err != nil {
+		return nil, err
+	}
+
+	dict, err := ReadDict(dictPath, info, true)
 
 	if err != nil {
 		return nil, err

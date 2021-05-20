@@ -2,7 +2,9 @@ package stardict
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io/ioutil"
+	embed2 "wdb/lib/embed"
 )
 
 // Sense has information belonging to single item position in dictionary
@@ -34,8 +36,17 @@ func (idx Idx) Get(item string) []*Sense {
 }
 
 // ReadIndex reads dictionary index into a memory and returns in-memory index structure
-func ReadIndex(filename string, info *Info) (idx *Idx, err error) {
-	data, err := ioutil.ReadFile(filename)
+func ReadIndex(filename string, info *Info, embed bool) (idx *Idx, err error) {
+	var data []byte
+	if !embed {
+		data, err = ioutil.ReadFile(filename)
+	} else {
+		file, err := embed2.Assets().Open(filename)
+		if err != nil {
+			fmt.Println(err)
+		}
+		data, err = ioutil.ReadAll(file)
+	}
 
 	// unable to read index
 	if err != nil {

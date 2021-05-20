@@ -12,7 +12,7 @@ func init() {
 	fmt.Println("加载Word2vec模型中...")
 	mod := ""
 	if os.Getenv("WDB_MODEL") == "" {
-		mod = "./data/GoogleNews-vectors-negative300.bin"
+		mod = "./model/GoogleNews-vectors-negative300.bin"
 	} else {
 		mod = os.Getenv("WDB_MODEL")
 	}

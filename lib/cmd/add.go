@@ -19,6 +19,10 @@ func RunAdd(str string) {
 					phrase = line[0:i]
 				}
 			}
+			if !strings.Contains(phrase," "){
+				fmt.Println("添加单词不需要加释义!")
+				return
+			}
 			found := false
 			idx := -1
 			for k, v := range serve.DB.Cphrases.Cphrase {
