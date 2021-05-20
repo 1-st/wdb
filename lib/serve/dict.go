@@ -2,7 +2,7 @@ package serve
 
 import (
 	"fmt"
-	"github.com/dyatlov/gostardict/stardict"
+	"github.com/1-st/gostardict/stardict"
 	"os"
 )
 
