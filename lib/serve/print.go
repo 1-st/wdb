@@ -25,12 +25,11 @@ func PrintHelp() {
 	out := os.Stdout
 	fmt.Fprintln(out, "指令列表: **按TAB键可以自动补全")
 	fmt.Fprintln(out, "	list						"+constant.CMD_LIST_DSP)
-	fmt.Fprintln(out, "	help						"+constant.CMD_HELP_DSP)
-	fmt.Fprintln(out, "	find [word/phrase]			"+constant.CMD_FIND_DSP)
 	fmt.Fprintln(out, "	add [word]					"+constant.CMD_ADD_DSP)
-	fmt.Fprintln(out, "	del [word/phrase] 			"+constant.CMD_DEL_DSP)
+	fmt.Fprintln(out, "	rm [word/phrase] 			"+constant.CMD_RM_DSP)
 	fmt.Fprintln(out, "	review [N] 					"+constant.CMD_REVIEW_DSP)
 	fmt.Fprintln(out, "	reviewP [N] 				"+constant.CMD_REVIEWP_DSP)
 	fmt.Fprintln(out, "")
+	fmt.Fprintln(out, "	help						"+constant.CMD_HELP_DSP)
 	fmt.Fprintln(out, "	exit/quit/q					退出")
 }

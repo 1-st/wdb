@@ -3,11 +3,25 @@ package cmd
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"strings"
 	"wdb/lib/serve"
 	"wdb/lib/util"
 )
 
 func RunList(str string) {
+	line := strings.TrimLeft(strings.TrimRight(str, " "), " ")
+	if line != "" {
+		if strings.Contains(line, " ") {
+			FindPhrase(line)
+		} else {
+			FindWord(line)
+		}
+	} else {
+		List()
+	}
+}
+
+func List() {
 	fmt.Println()
 	fmt.Println("单词:")
 	fmt.Println()
@@ -16,7 +30,7 @@ func RunList(str string) {
 	var listOK util.PairList
 	for _, v := range serve.DB.Cwords.Cword {
 		score := View2Score(v.Cviews)
-		if v.Cok==nil||v.Cok.String == "false" {
+		if v.Cok == nil || v.Cok.String == "false" {
 			list = append(list, util.Pair{
 				Name:  v.Cid.String,
 				Score: float32(score),
@@ -55,10 +69,9 @@ func RunList(str string) {
 	PrintList(&phrases)
 	fmt.Println()
 
-
 	//已完成
-	if len(listOK)!=0||len(phrasesOK)!=0{
-		if len(listOK)!=0{
+	if len(listOK) != 0 || len(phrasesOK) != 0 {
+		if len(listOK) != 0 {
 			fmt.Println()
 			fmt.Println("已完成单词:")
 			fmt.Println()
@@ -69,7 +82,7 @@ func RunList(str string) {
 			}
 			fmt.Println()
 		}
-		if len(phrasesOK)!=0{
+		if len(phrasesOK) != 0 {
 			fmt.Println()
 			fmt.Println("已完成词组:")
 			fmt.Println()
@@ -87,7 +100,7 @@ func RunList(str string) {
 	fmt.Printf("词组进度: %v/%v\n", len(phrasesOK), len(phrases)+len(phrasesOK))
 }
 
-func PrintList(list *util.PairList){
+func PrintList(list *util.PairList) {
 	for _, v := range *list {
 		if v.Score <= 30 {
 			color.Set(color.BgHiRed).Print(" ")

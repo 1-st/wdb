@@ -12,12 +12,17 @@ import (
 func RunAdd(str string) {
 	for i := 0; i < len(str); i++ {
 		if str[i] == '|' {
-			fmt.Println("添加词组")
-			line := strings.TrimLeft(strings.TrimRight(str, " ")," ")
+			line := strings.TrimLeft(strings.TrimRight(str, " "), " ")
+			var phrase = ""
+			for i := 0; i < len(line); i++ {
+				if line[i] == '|' {
+					phrase = line[0:i]
+				}
+			}
 			found := false
 			idx := -1
 			for k, v := range serve.DB.Cphrases.Cphrase {
-				if v.Cid.String == line {
+				if v.Cid.String == strings.TrimRight(phrase," ") {
 					found = true
 					idx = k
 				}
@@ -25,13 +30,15 @@ func RunAdd(str string) {
 			if found {
 				fmt.Println("词组已经存在，修改释义")
 				AddPhrase(line, idx)
+				return
 			}
+			fmt.Println("添加词组")
 			AddPhrase(line, -1)
 			return
 		}
 	}
-	for i:=0;i<len(strings.TrimLeft(strings.TrimRight(str, " ")," "));i++{
-		if str[i]==' '{
+	for i := 0; i < len(strings.TrimLeft(strings.TrimRight(str, " "), " ")); i++ {
+		if str[i] == ' ' {
 			fmt.Println("请添加词组释义!")
 			return
 		}
@@ -97,7 +104,7 @@ func AddPhrase(line string, idx int) {
 	if idx == -1 {
 		serve.DB.Cphrases.Cphrase = append(serve.DB.Cphrases.Cphrase, NewPhrase(phrase, explain))
 	} else {
-		serve.DB.Cphrases.Cphrase[idx].Cok.String = "true"
+		serve.DB.Cphrases.Cphrase[idx].Cexplains.String = explain
 	}
 
 	if serve.SaveDB() {

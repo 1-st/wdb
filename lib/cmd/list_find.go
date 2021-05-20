@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"strconv"
-	"strings"
 	"time"
 	"wdb/lib/constant"
 	"wdb/lib/serve"
@@ -12,15 +11,6 @@ import (
 	"wdb/lib/similar/ai"
 	"wdb/lib/util"
 )
-
-func RunFind(str string) {
-	word := strings.Trim(str, " ")
-	if strings.Contains(word, " ") {
-		FindPhrase(word)
-	} else {
-		FindWord(word)
-	}
-}
 
 func FindWord(word string) {
 	found := false
