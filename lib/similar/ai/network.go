@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	fmt.Println("加载Word2vec模型中......")
+	fmt.Println("加载Word2vec模型中...")
 	mod := ""
 	if os.Getenv("WDB_MODEL") == "" {
 		mod = "./data/GoogleNews-vectors-negative300.bin"
@@ -26,7 +26,7 @@ func init() {
 	if err != nil {
 		log.Printf("未能加载模型: %v\n", err)
 	}
-	log.Println("加载Word2vec模型成功!")
+	fmt.Println("加载Word2vec模型成功!")
 }
 
 func GetNetworkSimilarity(a, b string) (float32, error) {
