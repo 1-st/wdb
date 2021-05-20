@@ -19,7 +19,7 @@ func RunList(str string) {
 				Score: float32(score),
 			})
 		} else {
-			listOK = append(list, util.Pair{
+			listOK = append(listOK, util.Pair{
 				Name:  v.Cid.String,
 				Score: float32(score),
 			})
@@ -64,6 +64,7 @@ func RunList(str string) {
 			fmt.Printf("%v", v.Name)
 			fmt.Print("\t")
 		}
+		fmt.Println()
 		fmt.Println()
 	}
 
