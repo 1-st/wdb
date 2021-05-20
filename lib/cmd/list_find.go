@@ -91,7 +91,7 @@ func FindWord(word string) {
 					fmt.Println()
 				}
 				//网络近义词
-				var N = 3
+				var N = 5
 				fmt.Println("网络近义词:")
 				match := ai.GetSimilarity(word, N)
 				for i := 0; i < N; i++ {
