@@ -39,7 +39,7 @@ func RunReviewP(str string) {
 		fmt.Println(list[i].Name)
 		fmt.Println("是否认识这个词组?(y/n, default is yes)")
 		fmt.Println()
-		s := prompt.Input("preview > ", completer)
+		s := prompt.Input("review > ", completer)
 		idx := 0
 		for k, v := range serve.DB.Cphrases.Cphrase {
 			if list != nil && list[i].Name == v.Cid.String {

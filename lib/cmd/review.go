@@ -38,7 +38,7 @@ func RunReview(str string) {
 	for N > 0 && i >= 0 {
 		fmt.Println(list[i].Name)
 		fmt.Println("是否认识这个单词?(y/n, default is yes)")
-		s := prompt.Input("preview > ", completer)
+		s := prompt.Input("review > ", completer)
 		idx := 0
 		for k, v := range serve.DB.Cwords.Cword {
 			if list != nil && list[i].Name == v.Cid.String {
