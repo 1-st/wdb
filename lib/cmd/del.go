@@ -27,6 +27,7 @@ func DelPhrase(phrase string){
 	}
 	if !found {
 		fmt.Println("词组不存在")
+		return
 	}else{
 		serve.DB.Cphrases.Cphrase = append(serve.DB.Cphrases.Cphrase[:idx], serve.DB.Cphrases.Cphrase[idx+1:]...)
 	}
@@ -48,6 +49,7 @@ func DelWord(word string){
 	}
 	if !found {
 		fmt.Println("单词不存在")
+		return
 	}else{
 		serve.DB.Cwords.Cword = append(serve.DB.Cwords.Cword[:idx], serve.DB.Cwords.Cword[idx+1:]...)
 	}

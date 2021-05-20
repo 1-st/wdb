@@ -1,8 +1,7 @@
 package constant
 
 const (
-	CMD_ADD_DSP     = "[word] 添加一个单词"
-	CMD_ADDP_DSP    = "[phrase]|[explain] 添加一个词组，在|后写上释义,如果已经存在,修改释义"
+	CMD_ADD_DSP     = "[word/phrase] | [explain]添加一个单词或者词组,如果是词组，在|后写上解释"
 	CMD_DEL_DSP     = "[word/phrase] 删除单词或者词组"
 	CMD_FIND_DSP    = "[word/phrase] 寻找记录的单词或者词组"
 	CMD_HELP_DSP    = "打印帮助"

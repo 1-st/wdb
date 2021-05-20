@@ -16,7 +16,6 @@ func init() {
 		}
 	}
 	add(&CmdMap, cmd.RunAdd, "add", "a")
-	add(&CmdMap, cmd.RunAddP, "addP", "ap")
 	add(&CmdMap, cmd.RunDel, "del", "d")
 	add(&CmdMap, cmd.RunFind, "find", "f")
 	add(&CmdMap, cmd.RunHelp, "help", "h")
@@ -32,7 +31,6 @@ func completer(d prompt.Document) []prompt.Suggest {
 		{Text: "help", Description: constant.CMD_HELP_DSP},
 		{Text: "find", Description: constant.CMD_FIND_DSP},
 		{Text: "add", Description: constant.CMD_ADD_DSP},
-		{Text: "addP", Description: constant.CMD_ADDP_DSP},
 		{Text: "del", Description: constant.CMD_DEL_DSP},
 		{Text: "review", Description: constant.CMD_REVIEW_DSP},
 		{Text: "reviewP", Description: constant.CMD_REVIEWP_DSP},

@@ -28,7 +28,6 @@ func PrintHelp() {
 	fmt.Fprintln(out, "	help						"+constant.CMD_HELP_DSP)
 	fmt.Fprintln(out, "	find [word/phrase]			"+constant.CMD_FIND_DSP)
 	fmt.Fprintln(out, "	add [word]					"+constant.CMD_ADD_DSP)
-	fmt.Fprintln(out, `	addP [phrase]<[explain]>	`+constant.CMD_ADDP_DSP)
 	fmt.Fprintln(out, "	del [word/phrase] 			"+constant.CMD_DEL_DSP)
 	fmt.Fprintln(out, "	review [N] 					"+constant.CMD_REVIEW_DSP)
 	fmt.Fprintln(out, "	reviewP [N] 				"+constant.CMD_REVIEWP_DSP)
