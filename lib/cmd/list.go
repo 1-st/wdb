@@ -67,6 +67,7 @@ func RunList(str string) {
 				fmt.Printf("%v", v.Name)
 				fmt.Print("\t")
 			}
+			fmt.Println()
 		}
 		if len(phrasesOK)!=0{
 			fmt.Println()
@@ -77,8 +78,8 @@ func RunList(str string) {
 				fmt.Printf("%v", v.Name)
 				fmt.Print("\t")
 			}
+			fmt.Println()
 		}
-		fmt.Println()
 		fmt.Println()
 	}
 
