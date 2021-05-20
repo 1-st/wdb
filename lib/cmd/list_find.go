@@ -21,7 +21,6 @@ func FindWord(word string) {
 		if v.Cid.String == word {
 			found = true
 			color.Blue(GetMeaning(word))
-
 			if v.Cviews == nil {
 				v.Cviews = new(constant.Cviews)
 			}

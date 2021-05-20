@@ -11,4 +11,5 @@ var (
 	Model      *word2vec.Model = nil
 	ConfigBody                 = new(constant.Cbody)
 	DB                         = new(constant.Cdb)
+
 )
