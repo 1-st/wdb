@@ -106,6 +106,13 @@ func FindWord(word string) {
 	}
 	if !found {
 		fmt.Println("数据库中没有此单词")
+		if m := GetMeaning(word); m != "" {
+			fmt.Println()
+			fmt.Println(word)
+			fmt.Println()
+			fmt.Println(m)
+			fmt.Println()
+		}
 	}
 }
 
