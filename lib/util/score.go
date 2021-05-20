@@ -19,7 +19,7 @@ func GetScore(times []time.Time) float64 {
 	for i := len(percents) - 2; i >= 0; i-- {
 		score += math.Pow(1-score, 1.5) * percents[i]
 	}
-	if score > 0.60{
+	if score > 0.75{
 		score = math.Sqrt(1-math.Pow(score-1,2))
 	}
 	return score
