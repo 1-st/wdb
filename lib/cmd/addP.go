@@ -30,10 +30,10 @@ func RunAddP(str string) {
 func AddPhrase(line string, idx int) {
 	var phrase = ""
 	var explain = ""
-	for i := len(line) - 1; i >= 0; i-- {
-		if line[i] == '(' {
+	for i := 0; i < len(line); i++ {
+		if line[i] == '|' {
 			phrase = line[0:i]
-			explain = line[i+1 : len(line)-1]
+			explain = line[i+1 : len(line)]
 		}
 	}
 	if idx == -1 {

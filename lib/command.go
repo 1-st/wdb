@@ -44,7 +44,6 @@ func completer(d prompt.Document) []prompt.Suggest {
 		{Text: "a", Description: "add"},
 		{Text: "ap", Description: "addP"},
 		{Text: "d", Description: "del"},
-		{Text: "dx", Description: "delX"},
 		{Text: "r", Description: "review"},
 		{Text: "rp", Description: "reviewP"},
 	}
