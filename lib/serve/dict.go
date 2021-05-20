@@ -2,7 +2,7 @@ package serve
 
 import (
 	"fmt"
-	"github.com/1-st/gostardict/stardict"
+	"wdb/lib/stardict"
 	"os"
 )
 

@@ -1,7 +1,7 @@
 package serve
 
 import (
-	"github.com/1-st/gostardict/stardict"
+	"wdb/lib/stardict"
 	"github.com/sajari/word2vec"
 	"wdb/lib/constant"
 )
