@@ -26,7 +26,7 @@ func init() {
 
 func completer(d prompt.Document) []prompt.Suggest {
 	s := []prompt.Suggest{
-		{Text: "list", Description: constant.CMD_LIST_DSP},
+		{Text: "ls", Description: constant.CMD_LIST_DSP},
 		{Text: "help", Description: constant.CMD_HELP_DSP},
 		{Text: "add", Description: constant.CMD_ADD_DSP},
 		{Text: "rm", Description: constant.CMD_RM_DSP},
@@ -34,25 +34,22 @@ func completer(d prompt.Document) []prompt.Suggest {
 		{Text: "reviewP", Description: constant.CMD_REVIEWP_DSP},
 		{Text: "ok", Description: constant.CMD_OK_DSP},
 
-		{Text: "l", Description: "list"},
 		{Text: "h", Description: "help"},
 		{Text: "a", Description: "add"},
-		{Text: "ap", Description: "addP"},
-		{Text: "d", Description: "del"},
 		{Text: "r", Description: "review"},
 		{Text: "rp", Description: "reviewP"},
 	}
 	for _, v := range serve.DB.Cwords.Cword {
 		s = append(s, prompt.Suggest{
-			Text:        "find " + v.Cid.String,
+			Text:        "ls " + v.Cid.String,
 			Description: "",
 		})
 	}
 	for _, v := range serve.DB.Cphrases.Cphrase {
 		s = append(s, prompt.Suggest{
-			Text:        "find " + v.Cid.String,
+			Text:        "ls " + v.Cid.String,
 			Description: "",
 		})
 	}
-	return prompt.FilterContains(s, d.GetWordBeforeCursorWithSpace(), true)
+	return prompt.FilterFuzzy(s, d.GetWordBeforeCursorWithSpace(), true)
 }
