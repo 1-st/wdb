@@ -35,8 +35,10 @@ func RunReviewP(str string) {
 	list.Sort()
 	var i = len(list) - 1
 	for N > 0 && i >= 0 {
+		fmt.Println()
 		fmt.Println(list[i].Name)
 		fmt.Println("是否认识这个词组?(y/n, default is yes)")
+		fmt.Println()
 		s := prompt.Input("preview > ", completer)
 		idx := 0
 		for k, v := range serve.DB.Cphrases.Cphrase {
@@ -54,8 +56,11 @@ func RunReviewP(str string) {
 				ok.String = "true"
 			}
 			AddView(views)
+			fmt.Println()
+			fmt.Println(serve.DB.Cphrases.Cphrase[idx].Cid.String)
+			fmt.Println()
 			fmt.Println(serve.DB.Cphrases.Cphrase[idx].Cexplains.String)
-			for i:=0;i<5;i++{
+			for i:=0;i<2;i++{
 				fmt.Println()
 			}
 			serve.SaveDB()

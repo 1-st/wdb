@@ -8,6 +8,9 @@ import (
 )
 
 func RunList(str string) {
+	fmt.Println()
+	fmt.Println("单词:")
+	fmt.Println()
 	//单词
 	var list util.PairList
 	var listOK util.PairList
@@ -29,6 +32,8 @@ func RunList(str string) {
 	PrintList(&list)
 	fmt.Println()
 	fmt.Println()
+	fmt.Println("词组：")
+	fmt.Println()
 
 	//词组
 	var phrases util.PairList
@@ -49,27 +54,36 @@ func RunList(str string) {
 	}
 	PrintList(&phrases)
 	fmt.Println()
-	fmt.Println()
+
 
 	//已完成
 	if len(listOK)!=0||len(phrasesOK)!=0{
-		fmt.Println("已完成:")
-		for _, v := range listOK {
-			color.Set(color.BgHiGreen).Print(" ")
-			fmt.Printf("%v", v.Name)
-			fmt.Print("\t")
+		if len(listOK)!=0{
+			fmt.Println()
+			fmt.Println("已完成单词:")
+			fmt.Println()
+			for _, v := range listOK {
+				color.Set(color.BgHiGreen).Print(" ")
+				fmt.Printf("%v", v.Name)
+				fmt.Print("\t")
+			}
 		}
-		for _, v := range phrasesOK {
-			color.Set(color.BgHiGreen).Print(" ")
-			fmt.Printf("%v", v.Name)
-			fmt.Print("\t")
+		if len(phrasesOK)!=0{
+			fmt.Println()
+			fmt.Println("已完成词组:")
+			fmt.Println()
+			for _, v := range phrasesOK {
+				color.Set(color.BgHiGreen).Print(" ")
+				fmt.Printf("%v", v.Name)
+				fmt.Print("\t")
+			}
 		}
 		fmt.Println()
 		fmt.Println()
 	}
 
-	fmt.Printf("单词进度 %v/%v\n", len(listOK), len(list))
-	fmt.Printf("词组进度 %v/%v\n", len(phrasesOK), len(phrases))
+	fmt.Printf("单词进度: %v/%v\n", len(listOK), len(list)+len(listOK))
+	fmt.Printf("词组进度: %v/%v\n", len(phrasesOK), len(phrases)+len(phrasesOK))
 }
 
 func PrintList(list *util.PairList){
