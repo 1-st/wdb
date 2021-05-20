@@ -71,5 +71,5 @@ func RunReviewP(str string) {
 		i--
 		N--
 	}
-	fmt.Printf("总共复习了 %v 个单词\n",len(list)-1-i)
+	fmt.Printf("总共复习了 %v 个词组\n",len(list)-1-i)
 }

@@ -11,7 +11,7 @@ func Execute() {
 	serve.PrintLogo()
 	color.Blue("v0.1")
 	for {
-		t := prompt.Input("mdb >> ", completer)
+		t := prompt.Input("wdb >> ", completer)
 		if t == "" {
 			continue
 		}
