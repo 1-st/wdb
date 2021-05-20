@@ -13,7 +13,7 @@ func RunAdd(str string) {
 	for i := 0; i < len(str); i++ {
 		if str[i] == '|' {
 			fmt.Println("添加词组")
-			line := strings.TrimRight(str, " ")
+			line := strings.TrimLeft(strings.TrimRight(str, " ")," ")
 			found := false
 			idx := -1
 			for k, v := range serve.DB.Cphrases.Cphrase {
@@ -24,9 +24,15 @@ func RunAdd(str string) {
 			}
 			if found {
 				fmt.Println("词组已经存在，修改释义")
-				AddPhrase(strings.TrimLeft(line, " "), idx)
+				AddPhrase(line, idx)
 			}
-			AddPhrase(strings.TrimLeft(line, " "), -1)
+			AddPhrase(line, -1)
+			return
+		}
+	}
+	for i:=0;i<len(strings.TrimLeft(strings.TrimRight(str, " ")," "));i++{
+		if str[i]==' '{
+			fmt.Println("请添加词组释义!")
 			return
 		}
 	}
