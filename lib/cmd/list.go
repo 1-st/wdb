@@ -47,13 +47,13 @@ func List() {
 		}
 	}
 	list.RSort()
-	PrintList(&list,1)
+	PrintList(&list, 1)
 	fmt.Println()
 	fmt.Println()
 	fmt.Println("词组：")
 	fmt.Println()
 
-	printClockInit()
+	printClock2Init()
 	//词组
 	var phrases util.PairList
 	var phrasesOK util.PairList
@@ -72,7 +72,7 @@ func List() {
 		}
 	}
 	phrases.RSort()
-	PrintList(&phrases,2)
+	PrintList(&phrases, 2)
 	fmt.Println()
 
 	//已完成
@@ -122,7 +122,7 @@ func PrintPoint() {
 		color.FgHiRed, color.FgHiBlack))
 }
 
-func PrintList(list *util.PairList,clock int) {
+func PrintList(list *util.PairList, clock int) {
 	var point = ""
 	for _, v := range *list {
 		if v.Score <= 13 {
@@ -148,10 +148,10 @@ func PrintList(list *util.PairList,clock int) {
 		} else {
 			point = color.Set(color.FgHiGreen).Sprint("●")
 		}
-		if clock==1{
+		if clock == 1 {
 			printClock(point + v.Name)
-		}else if clock ==2{
-			printClock2(point+ v.Name)
+		} else if clock == 2 {
+			printClock2(point + v.Name)
 		}
 	}
 }
@@ -165,7 +165,7 @@ func printClockInit() {
 func printClock(str string) {
 	fmt.Printf("%-25s", str)
 	if print_count%int(LineWord) == 0 {
-		fmt.Print(color.Set(color.FgHiBlack).Sprint(strconv.Itoa(print_count))+"\n")
+		fmt.Print(color.Set(color.FgHiBlack).Sprint(strconv.Itoa(print_count)) + "\n")
 	}
 	print_count++
 }
@@ -178,7 +178,7 @@ func printClock2Init() {
 func printClock2(str string) {
 	fmt.Printf("%-38s", str)
 	if print_count2%int(LineWord/2) == 0 {
-		fmt.Print(color.Set(color.FgHiBlack).Sprint(strconv.Itoa(print_count2))+"\n")
+		fmt.Print(color.Set(color.FgHiBlack).Sprint(strconv.Itoa(print_count2)) + "\n")
 	}
 	print_count2++
 }
