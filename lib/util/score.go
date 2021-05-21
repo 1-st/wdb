@@ -20,7 +20,7 @@ func GetScore(times []time.Time) float64 {
 		score += math.Pow(1-score, 2) * percents[i]
 	}
 	if score > 0.85{
-		score = math.Sqrt(1-math.Pow(score-1,2))
+		score = math.Sqrt(1-math.Pow(score-1,1.5))
 	}
 	return score
 }

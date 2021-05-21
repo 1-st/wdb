@@ -29,76 +29,84 @@ func FindWord(word string) {
 			AddView(v.Cviews)
 			serve.SaveDB()
 
-			//形似词
-			var list = new(util.PairList)
-			for _, v := range serve.DB.Cwords.Cword {
-				if v.Cid.String != word {
-					score, err := similar.GetDiffSimilarity(word, v.Cid.String)
-					if err != nil {
-						fmt.Println("diff出错")
-					}
-					to, err := strconv.ParseFloat(serve.ConfigBody.Cconfig.Csimilar_dash_word_dash_threshold_dash_diff.String, 32)
-					if err != nil {
-						fmt.Println("config diff 数值不是float")
-						break
-					}
-					if score >= float32(to) {
-						*list = append(*list, util.Pair{
-							Name:  v.Cid.String,
-							Score: score,
-						})
-					}
-				}
-			}
-			list.Sort()
-			if len(*list) != 0 {
-				fmt.Println()
-				fmt.Println("形似词:")
-				for _, v := range *list {
-					fmt.Printf("%v %v \t", v.Name, util.FtoS(float64(v.Score))+"%")
-				}
-				fmt.Println()
-			}
-
-			if serve.Model != nil {
-				//近义词
-				var list = new(util.PairList)
-				for _, v := range serve.DB.Cwords.Cword {
-					if v.Cid.String != word {
-						score, err := ai.GetNetworkSimilarity(word, v.Cid.String)
-						if err != nil {
-							fmt.Println("word2vec model 出错")
-						}
-						to, err := strconv.ParseFloat(serve.ConfigBody.Cconfig.Csimilar_dash_word_dash_threshold_dash_network.String, 32)
-						if err != nil {
-							fmt.Println("config network 数值不是float")
-							break
-						}
-						if score >= float32(to) {
-							*list = append(*list, util.Pair{
-								Name:  v.Cid.String,
-								Score: score,
-							})
+			{ //库中近义词
+				if serve.Model != nil {
+					var list = new(util.PairList)
+					for _, v := range serve.DB.Cwords.Cword {
+						if v.Cid.String != word {
+							score, err := ai.GetNetworkSimilarity(word, v.Cid.String)
+							if err != nil {
+								fmt.Println("word2vec model 出错")
+							}
+							to, err := strconv.ParseFloat(serve.ConfigBody.Cconfig.Csimilar_dash_word_dash_threshold_dash_network.String, 32)
+							if err != nil {
+								fmt.Println("config network 数值不是float")
+								break
+							}
+							if score >= float32(to) {
+								*list = append(*list, util.Pair{
+									Name:  v.Cid.String,
+									Score: score,
+								})
+							}
 						}
 					}
-				}
-				list.Sort()
-				if len(*list) != 0 {
-					fmt.Println()
-					fmt.Println("近义词:")
-					for _, v := range *list {
-						fmt.Printf("%v %v \t", v.Name, util.FtoS(float64(v.Score))+"%")
+					list.Sort()
+					if len(*list) != 0 {
+						fmt.Println()
+						fmt.Println("[库中近义词]")
+						for _, v := range *list {
+							fmt.Printf("%v %v \t", v.Name, util.FtoS(float64(v.Score))+"%")
+						}
+						fmt.Println()
 					}
 					fmt.Println()
 				}
-				//网络近义词
-				var N = 5
-				fmt.Println("网络近义词:")
-				match := ai.GetSimilarity(word, N)
-				for i := 0; i < N; i++ {
-					fmt.Printf("%v %v\t", match[i].Word, util.FtoS(float64(match[i].Score))+"%")
+				{//网络近义词
+					var N = 5
+					fmt.Println("[网络近义词]")
+					match := ai.GetSimilarity(word, N)
+					for i := 0; i < N; i++ {
+						fmt.Printf("%v %v\t", match[i].Word, util.FtoS(float64(match[i].Score))+"%")
+					}
+					fmt.Println()
 				}
-				fmt.Println()
+				{ //形似词
+					var list = new(util.PairList)
+					for _, v := range serve.DB.Cwords.Cword {
+						if v.Cid.String != word {
+							score, err := similar.GetDiffSimilarity(word, v.Cid.String)
+							if err != nil {
+								fmt.Println("diff出错")
+							}
+							to, err := strconv.ParseFloat(serve.ConfigBody.Cconfig.Csimilar_dash_word_dash_threshold_dash_diff.String, 32)
+							if err != nil {
+								fmt.Println("config diff 数值不是float")
+								break
+							}
+							if score >= float32(to) {
+								*list = append(*list, util.Pair{
+									Name:  v.Cid.String,
+									Score: score,
+								})
+							}
+						}
+					}
+					list.Sort()
+					if len(*list) != 0 {
+						fmt.Println()
+						fmt.Println("[形近词]")
+						for _, v := range *list {
+							fmt.Printf("%v\n", v.Name)
+							for k, v := range GetMeaningSimple(v.Name) {
+								if k >= 1 {
+									fmt.Println(v)
+								}
+							}
+							fmt.Println()
+						}
+					}
+				}
 
 			}
 			break
@@ -152,7 +160,7 @@ func GetMeaning(word string) string {
 	return ""
 }
 
-func GetMeaningSimple(word string) ([]string){
+func GetMeaningSimple(word string) []string {
 	t := serve.Dict.Translate(word)
 	if t == nil {
 		return nil
@@ -160,15 +168,15 @@ func GetMeaningSimple(word string) ([]string){
 	var data = ""
 	for _, v := range t {
 		for _, vv := range v.Parts {
-			data+=string(vv.Data)
+			data += string(vv.Data)
 		}
 	}
 	var res = []string{}
-	res = strings.Split(data,"\n")
+	res = strings.Split(data, "\n")
 	var N = 0
-	if len(res)>=3 {
-		N  = 3
-	}else{
+	if len(res) >= 3 {
+		N = 3
+	} else {
 		N = len(res)
 	}
 	return res[:N]
