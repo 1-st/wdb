@@ -194,7 +194,6 @@ func GetMeaningSimple(word string) []string {
 
 func PrintMemory(view *constant.Cviews) {
 	t := len(view.Cat)
-	fmt.Println()
 	fmt.Println("复习次数: " + strconv.Itoa(t))
 	if t != 0 {
 		lastTime := view.Cat[len(view.Cat)-1].String
@@ -202,6 +201,7 @@ func PrintMemory(view *constant.Cviews) {
 		fmt.Printf("距今小时数: %v\n", strconv.FormatFloat(util.HourToNow(lastTime), 'f', 1, 64))
 	}
 	fmt.Println("预期记忆率: " + strconv.FormatFloat(View2Score(view), 'f', 1, 64) + "%")
+	fmt.Println()
 }
 
 func AddView(view *constant.Cviews) {
