@@ -25,12 +25,10 @@ func FindWord(word string) {
 			if v.Cviews == nil {
 				v.Cviews = new(constant.Cviews)
 			}
-
 			AddView(v.Cviews)
 			serve.SaveDB()
-
-			{ //库中近义词
-				if serve.Model != nil {
+			if serve.Model != nil {
+				{ //库中近义词
 					var list = new(util.PairList)
 					for _, v := range serve.DB.Cwords.Cword {
 						if v.Cid.String != word {
@@ -70,15 +68,16 @@ func FindWord(word string) {
 							fmt.Println()
 						}
 					}
-				}
-				{ //网络近义词
-					var N = 5
-					color.HiBlue("[网络相关词]")
-					match := ai.GetSimilarity(word, N)
-					for i := 0; i < N; i++ {
-						fmt.Printf("%v %v\t", match[i].Word, util.FtoS(float64(match[i].Score))+"%")
+					{ //网络近义词
+						var N = 5
+						color.HiBlue("[网络相关词]")
+						match := ai.GetSimilarity(word, N)
+						for i := 0; i < N; i++ {
+							fmt.Printf("%v %v\t", match[i].Word, util.FtoS(float64(match[i].Score))+"%")
+						}
+						fmt.Println()
+						fmt.Println()
 					}
-					fmt.Println()
 				}
 				{ //形似词
 					var list = new(util.PairList)
@@ -103,7 +102,6 @@ func FindWord(word string) {
 					}
 					list.Sort()
 					if len(*list) != 0 {
-						fmt.Println()
 						color.HiBlue("[形近词]")
 						for _, v := range *list {
 							fmt.Printf("%v\n", v.Name)
@@ -116,7 +114,6 @@ func FindWord(word string) {
 						}
 					}
 				}
-
 			}
 			PrintMemory(v.Cviews)
 			break
