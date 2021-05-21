@@ -46,7 +46,7 @@ func List() {
 			})
 		}
 	}
-	list.Sort()
+	list.RSort()
 	PrintList(&list,1)
 	fmt.Println()
 	fmt.Println()
@@ -71,6 +71,7 @@ func List() {
 			})
 		}
 	}
+	phrases.RSort()
 	PrintList(&phrases,2)
 	fmt.Println()
 
@@ -80,6 +81,7 @@ func List() {
 			fmt.Println()
 			fmt.Println("已完成单词:")
 			fmt.Println()
+			listOK.RSort()
 			printClockInit()
 			for _, v := range listOK {
 				printClock(color.Set(color.FgHiGreen).Sprint("●") + v.Name)
@@ -90,6 +92,7 @@ func List() {
 			fmt.Println()
 			fmt.Println("已完成词组:")
 			fmt.Println()
+			phrasesOK.RSort()
 			printClock2Init()
 			for _, v := range phrasesOK {
 				printClock2(color.Set(color.FgHiGreen).Sprint("●") + v.Name)
