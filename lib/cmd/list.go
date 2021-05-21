@@ -116,14 +116,14 @@ func PrintPoint() {
 	fmt.Println(f(color.FgHiGreen, color.FgGreen, color.FgHiBlue,
 		color.FgBlue, color.FgYellow, color.FgHiYellow,
 		color.FgMagenta, color.FgHiMagenta, color.FgRed,
-		color.FgHiRed, color.FgWhite))
+		color.FgHiRed, color.FgHiBlack))
 }
 
 func PrintList(list *util.PairList,clock int) {
 	var point = ""
 	for _, v := range *list {
 		if v.Score <= 13 {
-			point = color.Set(color.FgWhite).Sprint("●")
+			point = color.Set(color.FgHiBlack).Sprint("●")
 		} else if v.Score <= 15 {
 			point = color.Set(color.FgHiRed).Sprint("●")
 		} else if v.Score <= 17 {
