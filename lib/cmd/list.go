@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"strconv"
 	"strings"
 	"wdb/lib/serve"
 	"wdb/lib/util"
@@ -46,7 +47,7 @@ func List() {
 		}
 	}
 	list.Sort()
-	PrintList(&list)
+	PrintList(&list,1)
 	fmt.Println()
 	fmt.Println()
 	fmt.Println("词组：")
@@ -70,7 +71,7 @@ func List() {
 			})
 		}
 	}
-	PrintList(&phrases)
+	PrintList(&phrases,2)
 	fmt.Println()
 
 	//已完成
@@ -118,7 +119,7 @@ func PrintPoint() {
 		color.FgHiRed, color.FgWhite))
 }
 
-func PrintList(list *util.PairList) {
+func PrintList(list *util.PairList,clock int) {
 	var point = ""
 	for _, v := range *list {
 		if v.Score <= 13 {
@@ -144,21 +145,24 @@ func PrintList(list *util.PairList) {
 		} else {
 			point = color.Set(color.FgHiGreen).Sprint("●")
 		}
-		printClock(point + v.Name)
+		if clock==1{
+			printClock(point + v.Name)
+		}else if clock ==2{
+			printClock2(point+ v.Name)
+		}
 	}
 }
 
 var print_count = 1
 
-func
-printClockInit() {
+func printClockInit() {
 	print_count = 1
 }
 
 func printClock(str string) {
 	fmt.Printf("%-25s", str)
 	if print_count%int(LineWord) == 0 {
-		fmt.Print("\n")
+		fmt.Print(color.Set(color.FgHiBlack).Sprint(strconv.Itoa(print_count))+"\n")
 	}
 	print_count++
 }
@@ -169,9 +173,9 @@ func printClock2Init() {
 	print_count2 = 1
 }
 func printClock2(str string) {
-	fmt.Printf("%-45s", str)
-	if print_count%int(LineWord/2) == 0 {
-		fmt.Print("\n")
+	fmt.Printf("%-38s", str)
+	if print_count2%int(LineWord/2) == 0 {
+		fmt.Print(color.Set(color.FgHiBlack).Sprint(strconv.Itoa(print_count2))+"\n")
 	}
 	print_count2++
 }
