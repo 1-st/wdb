@@ -25,7 +25,7 @@ func FindWord(word string) {
 			if v.Cviews == nil {
 				v.Cviews = new(constant.Cviews)
 			}
-			PrintMemory(v.Cviews)
+
 			AddView(v.Cviews)
 			serve.SaveDB()
 
@@ -57,7 +57,7 @@ func FindWord(word string) {
 						color.HiBlue("[库中相关词]")
 						var i = 0
 						for _, v := range *list {
-							if i == 5 {
+							if i == 6 {
 								break
 							}
 							i++
@@ -118,6 +118,7 @@ func FindWord(word string) {
 				}
 
 			}
+			PrintMemory(v.Cviews)
 			break
 		}
 	}
