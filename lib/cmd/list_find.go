@@ -54,7 +54,7 @@ func FindWord(word string) {
 					list.Sort()
 					if len(*list) != 0 {
 						fmt.Println()
-						color.HiBlue("[库中近义词]")
+						color.HiBlue("[库中相关词]")
 						var i = 0
 						for _, v := range *list {
 							if i == 5 {
@@ -70,11 +70,10 @@ func FindWord(word string) {
 							fmt.Println()
 						}
 					}
-					fmt.Println()
 				}
 				{ //网络近义词
 					var N = 5
-					color.HiBlue("[网络近义词]")
+					color.HiBlue("[网络相关词]")
 					match := ai.GetSimilarity(word, N)
 					for i := 0; i < N; i++ {
 						fmt.Printf("%v %v\t", match[i].Word, util.FtoS(float64(match[i].Score))+"%")
