@@ -16,7 +16,7 @@ import (
 func FindWord(word string) {
 	found := false
 	fmt.Println()
-	color.Green(word)
+	color.Red(word)
 	fmt.Println()
 	for _, v := range serve.DB.Cwords.Cword {
 		if v.Cid.String == word {
