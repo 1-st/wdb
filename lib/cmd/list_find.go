@@ -34,7 +34,7 @@ func FindWord(word string) {
 					for _, v := range serve.DB.Cwords.Cword {
 						if v.Cid.String != word {
 							score, err := ai.GetNetworkSimilarity(word, v.Cid.String)
-							if err != nil && err.Error() != new(word2vec.NotFoundError).Error() {
+							if err != nil && !(err.Error() == new(word2vec.NotFoundError).Error()) {
 								fmt.Println("word2vec model 出错" + err.Error())
 							}
 							to, err := strconv.ParseFloat(serve.ConfigBody.Cconfig.Csimilar_dash_word_dash_threshold_dash_network.String, 32)
