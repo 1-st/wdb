@@ -16,12 +16,12 @@ import (
 func FindWord(word string) {
 	found := false
 	fmt.Println()
-	fmt.Println(word)
+	color.Green(word)
 	fmt.Println()
 	for _, v := range serve.DB.Cwords.Cword {
 		if v.Cid.String == word {
 			found = true
-			fmt.Println(GetMeaning(word))
+			color.HiRed(GetMeaning(word))
 			if v.Cviews == nil {
 				v.Cviews = new(constant.Cviews)
 			}
@@ -54,17 +54,27 @@ func FindWord(word string) {
 					list.Sort()
 					if len(*list) != 0 {
 						fmt.Println()
-						fmt.Println("[库中近义词]")
+						color.HiBlue("[库中近义词]")
+						var i = 0
 						for _, v := range *list {
-							fmt.Printf("%v %v \t", v.Name, util.FtoS(float64(v.Score))+"%")
+							if i == 5 {
+								break
+							}
+							i++
+							fmt.Printf("%v %v\n", v.Name, util.FtoS(float64(v.Score))+"%")
+							for k, v := range GetMeaningSimple(v.Name) {
+								if k >= 1 {
+									fmt.Println(v)
+								}
+							}
+							fmt.Println()
 						}
-						fmt.Println()
 					}
 					fmt.Println()
 				}
-				{//网络近义词
+				{ //网络近义词
 					var N = 5
-					fmt.Println("[网络近义词]")
+					color.HiBlue("[网络近义词]")
 					match := ai.GetSimilarity(word, N)
 					for i := 0; i < N; i++ {
 						fmt.Printf("%v %v\t", match[i].Word, util.FtoS(float64(match[i].Score))+"%")
@@ -95,7 +105,7 @@ func FindWord(word string) {
 					list.Sort()
 					if len(*list) != 0 {
 						fmt.Println()
-						fmt.Println("[形近词]")
+						color.HiBlue("[形近词]")
 						for _, v := range *list {
 							fmt.Printf("%v\n", v.Name)
 							for k, v := range GetMeaningSimple(v.Name) {
