@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"github.com/fatih/color"
-	"github.com/sajari/word2vec"
 	"strconv"
 	"strings"
 	"time"
@@ -34,7 +33,7 @@ func FindWord(word string) {
 					for _, v := range serve.DB.Cwords.Cword {
 						if v.Cid.String != word {
 							score, err := ai.GetNetworkSimilarity(word, v.Cid.String)
-							if err != nil && !(err.Error() == new(word2vec.NotFoundError).Error()) {
+							if err != nil && !strings.HasPrefix(err.Error(),"word not found") {
 								fmt.Println("word2vec model 出错" + err.Error())
 							}
 							to, err := strconv.ParseFloat(serve.ConfigBody.Cconfig.Csimilar_dash_word_dash_threshold_dash_network.String, 32)
@@ -179,7 +178,7 @@ func GetMeaningSimple(word string) []string {
 			data += string(vv.Data)
 		}
 	}
-	var res = []string{}
+	var res []string
 	res = strings.Split(data, "\n")
 	var N = 0
 	if len(res) >= 3 {
