@@ -141,7 +141,7 @@ func FindPhrase(phrase string) {
 	for _, v := range serve.DB.Cphrases.Cphrase {
 		if v.Cid.String == phrase {
 			found = true
-			color.Blue("%v\n", v.Cexplains.String)
+			color.HiRed("%v\n", v.Cexplains.String)
 			if v.Cviews == nil {
 				v.Cviews = new(constant.Cviews)
 			}
