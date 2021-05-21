@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"github.com/sajari/word2vec"
 	"strconv"
 	"strings"
 	"time"
@@ -33,8 +34,8 @@ func FindWord(word string) {
 					for _, v := range serve.DB.Cwords.Cword {
 						if v.Cid.String != word {
 							score, err := ai.GetNetworkSimilarity(word, v.Cid.String)
-							if err != nil {
-								fmt.Println("word2vec model 出错")
+							if err != nil && err.Error() != new(word2vec.NotFoundError).Error() {
+								fmt.Println("word2vec model 出错" + err.Error())
 							}
 							to, err := strconv.ParseFloat(serve.ConfigBody.Cconfig.Csimilar_dash_word_dash_threshold_dash_network.String, 32)
 							if err != nil {
@@ -79,39 +80,39 @@ func FindWord(word string) {
 						fmt.Println()
 					}
 				}
-				{ //形似词
-					var list = new(util.PairList)
-					for _, v := range serve.DB.Cwords.Cword {
-						if v.Cid.String != word {
-							score, err := similar.GetDiffSimilarity(word, v.Cid.String)
-							if err != nil {
-								fmt.Println("diff出错")
-							}
-							to, err := strconv.ParseFloat(serve.ConfigBody.Cconfig.Csimilar_dash_word_dash_threshold_dash_diff.String, 32)
-							if err != nil {
-								fmt.Println("config diff 数值不是float")
-								break
-							}
-							if score >= float32(to) {
-								*list = append(*list, util.Pair{
-									Name:  v.Cid.String,
-									Score: score,
-								})
-							}
+			}
+			{ //形似词
+				var list = new(util.PairList)
+				for _, v := range serve.DB.Cwords.Cword {
+					if v.Cid.String != word {
+						score, err := similar.GetDiffSimilarity(word, v.Cid.String)
+						if err != nil {
+							fmt.Println("diff出错")
+						}
+						to, err := strconv.ParseFloat(serve.ConfigBody.Cconfig.Csimilar_dash_word_dash_threshold_dash_diff.String, 32)
+						if err != nil {
+							fmt.Println("config diff 数值不是float")
+							break
+						}
+						if score >= float32(to) {
+							*list = append(*list, util.Pair{
+								Name:  v.Cid.String,
+								Score: score,
+							})
 						}
 					}
-					list.Sort()
-					if len(*list) != 0 {
-						color.HiBlue("[形近词]")
-						for _, v := range *list {
-							fmt.Printf("%v\n", v.Name)
-							for k, v := range GetMeaningSimple(v.Name) {
-								if k >= 1 {
-									fmt.Println(v)
-								}
+				}
+				list.Sort()
+				if len(*list) != 0 {
+					color.HiBlue("[形近词]")
+					for _, v := range *list {
+						fmt.Printf("%v\n", v.Name)
+						for k, v := range GetMeaningSimple(v.Name) {
+							if k >= 1 {
+								fmt.Println(v)
 							}
-							fmt.Println()
 						}
+						fmt.Println()
 					}
 				}
 			}
