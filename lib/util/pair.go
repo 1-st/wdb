@@ -30,3 +30,8 @@ func (l *PairList) Sort() {
 	sort.Sort(l)
 }
 
+//1-->100
+func (l *PairList) RSort() {
+	sort.Sort(sort.Reverse(l))
+}
+

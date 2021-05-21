@@ -8,4 +8,5 @@ const (
 	CMD_REVIEW_DSP  = "[N] 复习单词,后接复习的数量(默认为30)"
 	CMD_REVIEWP_DSP = "[N] 复习词组,后接复习的数量(默认为30)"
 	CMD_OK_DSP      = "[word/phrase] 将单词或者词组设置为已经掌握，以后不再复习,已经掌握的会重新投入复习"
+	CMD_PRINT_DSP	= "[word/phrase] N 打印词组或者单词的解释,后接打印数量,文件输出在执行目录"
 )

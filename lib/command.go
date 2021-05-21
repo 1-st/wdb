@@ -22,6 +22,7 @@ func init() {
 	add(&CmdMap, cmd.RunReview, "review", "r")
 	add(&CmdMap, cmd.RunReviewP, "reviewP", "rp")
 	add(&CmdMap, cmd.RunOK, "ok")
+	add(&CmdMap, cmd.RunPrint, "print", "p")
 }
 
 func completer(d prompt.Document) []prompt.Suggest {
@@ -33,8 +34,10 @@ func completer(d prompt.Document) []prompt.Suggest {
 		{Text: "review", Description: constant.CMD_REVIEW_DSP},
 		{Text: "reviewP", Description: constant.CMD_REVIEWP_DSP},
 		{Text: "ok", Description: constant.CMD_OK_DSP},
+		{Text: "print", Description: constant.CMD_PRINT_DSP},
 
 		{Text: "h", Description: "help"},
+		{Text: "p", Description: "print"},
 		{Text: "a", Description: "add"},
 		{Text: "r", Description: "review"},
 		{Text: "rp", Description: "reviewP"},

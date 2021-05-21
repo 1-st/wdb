@@ -8,7 +8,13 @@ import (
 	"wdb/lib/serve"
 )
 
-func init() {
+var FastBoot = false
+
+func Load() {
+	if FastBoot {
+		fmt.Println("快速启动")
+		return
+	}
 	fmt.Println("加载Word2vec模型中...")
 	mod := ""
 	if os.Getenv("WDB_MODEL") == "" {

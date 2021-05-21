@@ -8,6 +8,8 @@ import (
 	"wdb/lib/util"
 )
 
+var LineWord int64 = 6
+
 func RunList(str string) {
 	line := strings.TrimLeft(strings.TrimRight(str, " "), " ")
 	if line != "" {
@@ -25,6 +27,7 @@ func List() {
 	fmt.Println()
 	fmt.Println("单词:")
 	fmt.Println()
+	printClockInit()
 	//单词
 	var list util.PairList
 	var listOK util.PairList
@@ -49,6 +52,7 @@ func List() {
 	fmt.Println("词组：")
 	fmt.Println()
 
+	printClockInit()
 	//词组
 	var phrases util.PairList
 	var phrasesOK util.PairList
@@ -75,10 +79,9 @@ func List() {
 			fmt.Println()
 			fmt.Println("已完成单词:")
 			fmt.Println()
+			printClockInit()
 			for _, v := range listOK {
-				color.Set(color.BgHiGreen).Print(" ")
-				fmt.Printf("%v", v.Name)
-				fmt.Print("\t")
+				printClock(color.Set(color.FgHiGreen).Sprint("●") + v.Name)
 			}
 			fmt.Println()
 		}
@@ -86,10 +89,9 @@ func List() {
 			fmt.Println()
 			fmt.Println("已完成词组:")
 			fmt.Println()
+			printClock2Init()
 			for _, v := range phrasesOK {
-				color.Set(color.BgHiGreen).Print(" ")
-				fmt.Printf("%v", v.Name)
-				fmt.Print("\t")
+				printClock2(color.Set(color.FgHiGreen).Sprint("●") + v.Name)
 			}
 			fmt.Println()
 		}
@@ -98,24 +100,78 @@ func List() {
 
 	fmt.Printf("单词进度: %v/%v\n", len(listOK), len(list)+len(listOK))
 	fmt.Printf("词组进度: %v/%v\n", len(phrasesOK), len(phrases)+len(phrasesOK))
+	fmt.Println()
+	PrintPoint()
+	fmt.Println()
+}
+
+func PrintPoint() {
+	var f = func(colors ...color.Attribute) (res string) {
+		for _, v := range colors {
+			res += color.Set(v).Sprint("●")
+		}
+		return
+	}
+	fmt.Println(f(color.FgHiGreen, color.FgGreen, color.FgHiBlue,
+		color.FgBlue, color.FgYellow, color.FgHiYellow,
+		color.FgMagenta, color.FgHiMagenta, color.FgRed,
+		color.FgHiRed, color.FgWhite))
 }
 
 func PrintList(list *util.PairList) {
+	var point = ""
 	for _, v := range *list {
-		if v.Score <= 30 {
-			color.Set(color.BgHiRed).Print(" ")
-		} else if v.Score <= 40 {
-			color.Set(color.BgRed).Print(" ")
-		} else if v.Score <= 50 {
-			color.Set(color.BgHiYellow).Print(" ")
+		if v.Score <= 13 {
+			point = color.Set(color.FgWhite).Sprint("●")
+		} else if v.Score <= 15 {
+			point = color.Set(color.FgHiRed).Sprint("●")
+		} else if v.Score <= 17 {
+			point = color.Set(color.FgRed).Sprint("●")
+		} else if v.Score <= 19 {
+			point = color.Set(color.FgHiMagenta).Sprint("●")
+		} else if v.Score <= 22 {
+			point = color.Set(color.FgMagenta).Sprint("●")
+		} else if v.Score <= 25 {
+			point = color.Set(color.FgHiYellow).Sprint("●")
+		} else if v.Score <= 34 {
+			point = color.Set(color.FgYellow).Sprint("●")
+		} else if v.Score <= 38 {
+			point = color.Set(color.FgBlue).Sprint("●")
+		} else if v.Score <= 42 {
+			point = color.Set(color.FgHiBlue).Sprint("●")
 		} else if v.Score <= 60 {
-			color.Set(color.BgYellow).Print(" ")
-		} else if v.Score <= 85 {
-			color.Set(color.BgGreen).Print(" ")
+			point = color.Set(color.FgGreen).Sprint("●")
 		} else {
-			color.Set(color.BgHiGreen).Print(" ")
+			point = color.Set(color.FgHiGreen).Sprint("●")
 		}
-		fmt.Printf("%v", v.Name)
-		fmt.Print("\t")
+		printClock(point + v.Name)
 	}
+}
+
+var print_count = 1
+
+func
+printClockInit() {
+	print_count = 1
+}
+
+func printClock(str string) {
+	fmt.Printf("%-25s", str)
+	if print_count%int(LineWord) == 0 {
+		fmt.Print("\n")
+	}
+	print_count++
+}
+
+var print_count2 = 1
+
+func printClock2Init() {
+	print_count2 = 1
+}
+func printClock2(str string) {
+	fmt.Printf("%-45s", str)
+	if print_count%int(LineWord/2) == 0 {
+		fmt.Print("\n")
+	}
+	print_count2++
 }

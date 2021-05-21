@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"strconv"
+	"strings"
 	"time"
 	"wdb/lib/constant"
 	"wdb/lib/serve"
@@ -20,7 +21,7 @@ func FindWord(word string) {
 	for _, v := range serve.DB.Cwords.Cword {
 		if v.Cid.String == word {
 			found = true
-			color.Blue(GetMeaning(word))
+			fmt.Println(GetMeaning(word))
 			if v.Cviews == nil {
 				v.Cviews = new(constant.Cviews)
 			}
@@ -149,6 +150,28 @@ func GetMeaning(word string) string {
 		}
 	}
 	return ""
+}
+
+func GetMeaningSimple(word string) ([]string){
+	t := serve.Dict.Translate(word)
+	if t == nil {
+		return nil
+	}
+	var data = ""
+	for _, v := range t {
+		for _, vv := range v.Parts {
+			data+=string(vv.Data)
+		}
+	}
+	var res = []string{}
+	res = strings.Split(data,"\n")
+	var N = 0
+	if len(res)>=3 {
+		N  = 3
+	}else{
+		N = len(res)
+	}
+	return res[:N]
 }
 
 func PrintMemory(view *constant.Cviews) {
