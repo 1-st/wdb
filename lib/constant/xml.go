@@ -8,9 +8,9 @@ type Cat struct {
 }
 
 type Cdb struct {
-	XMLName    xml.Name  `xml:"db,omitempty" json:"db,omitempty"`
-	Cphrases   *Cphrases `xml:"phrases,omitempty" json:"phrases,omitempty"`
-	Cwords     *Cwords   `xml:"words,omitempty" json:"words,omitempty"`
+	XMLName  xml.Name  `xml:"db,omitempty" json:"db,omitempty"`
+	Cphrases *Cphrases `xml:"phrases,omitempty" json:"phrases,omitempty"`
+	Cwords   *Cwords   `xml:"words,omitempty" json:"words,omitempty"`
 }
 
 type Cphrases struct {
@@ -20,7 +20,7 @@ type Cphrases struct {
 
 type Cexplains struct {
 	XMLName xml.Name `xml:"explains,omitempty" json:"explains,omitempty"`
-	String string `xml:",chardata" json:",omitempty"`
+	String  string   `xml:",chardata" json:",omitempty"`
 }
 
 type Cok struct {
@@ -35,13 +35,12 @@ type Csentence struct {
 	Ctranslated *Ctranslated `xml:"translated,omitempty" json:"translated,omitempty"`
 }
 
-
 type Cphrase struct {
-	XMLName xml.Name     `xml:"phrase,omitempty" json:"phrase,omitempty"`
+	XMLName   xml.Name   `xml:"phrase,omitempty" json:"phrase,omitempty"`
 	Cexplains *Cexplains `xml:"explains,omitempty" json:"explains,omitempty"`
-	Cid *Cid             `xml:"id,omitempty" json:"id,omitempty"`
-	Cok *Cok             `xml:"ok,omitempty" json:"ok,omitempty"`
-	Cviews *Cviews       `xml:"views,omitempty" json:"views,omitempty"`
+	Cid       *Cid       `xml:"id,omitempty" json:"id,omitempty"`
+	Cok       *Cok       `xml:"ok,omitempty" json:"ok,omitempty"`
+	Cviews    *Cviews    `xml:"views,omitempty" json:"views,omitempty"`
 }
 
 type Csentences struct {
@@ -59,11 +58,17 @@ type Cviews struct {
 	Cat     []*Cat   `xml:"at,omitempty" json:"at,omitempty"`
 }
 
+type Ckey struct {
+	XMLName xml.Name `xml:"key,omitempty" json:"key,omitempty"`
+	string  string   `xml:",chardata" json:",omitempty"`
+}
+
 type Cword struct {
-	XMLName   xml.Name `xml:"word,omitempty" json:"word,omitempty"`
-	Cid       *Cid     `xml:"id,omitempty" json:"id,omitempty"`
-	Cok       *Cok     `xml:"ok,omitempty" json:"ok,omitempty"`
-	Cviews    *Cviews  `xml:"views,omitempty" json:"views,omitempty"`
+	XMLName xml.Name `xml:"word,omitempty" json:"word,omitempty"`
+	Cid     *Cid     `xml:"id,omitempty" json:"id,omitempty"`
+	Cok     *Cok     `xml:"ok,omitempty" json:"ok,omitempty"`
+	Ckey    *Ckey    `xml:"key,omitempty" json:"key,omitempty"`
+	Cviews  *Cviews  `xml:"views,omitempty" json:"views,omitempty"`
 }
 
 type Cwords struct {

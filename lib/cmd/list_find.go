@@ -33,7 +33,7 @@ func FindWord(word string) {
 					for _, v := range serve.DB.Cwords.Cword {
 						if v.Cid.String != word {
 							score, err := ai.GetNetworkSimilarity(word, v.Cid.String)
-							if err != nil && !strings.HasPrefix(err.Error(),"word not found") {
+							if err != nil && !strings.HasPrefix(err.Error(), "word not found") {
 								fmt.Println("word2vec model 出错" + err.Error())
 							}
 							to, err := strconv.ParseFloat(serve.ConfigBody.Cconfig.Csimilar_dash_word_dash_threshold_dash_network.String, 32)
@@ -72,7 +72,7 @@ func FindWord(word string) {
 						var N = 5
 						color.HiBlue("[网络相关词]")
 						match := ai.GetSimilarity(word, N)
-						for i := 0; i < N; i++ {
+						for i := 0; i < N && i < len(match); i++ {
 							fmt.Printf("%v %v\t", match[i].Word, util.FtoS(float64(match[i].Score))+"%")
 						}
 						fmt.Println()
