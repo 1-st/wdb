@@ -13,6 +13,7 @@ import (
 
 func RunReview(str string) {
 	var N int
+	var cN int
 	var err error
 	if strings.Trim(str, " ") == "" {
 		N = 30
@@ -23,6 +24,7 @@ func RunReview(str string) {
 			return
 		}
 	}
+	cN = N
 	var list util.PairList
 	for _, v := range serve.DB.Cwords.Cword {
 		score := View2Score(v.Cviews)
@@ -35,13 +37,27 @@ func RunReview(str string) {
 	}
 	list.Sort()
 	var i = len(list) - 1
-	for N > 0 && i >= 0 {
-		fmt.Println(list[i].Name)
+	var cache []int
+	var round = 1
+	for N > 0 && i >= 0 || len(cache) != 0 {
+		if len(cache) == 15 || !(N > 0 && i >= 0) {
+			round = 2
+		} else if len(cache) == 0 {
+			round = 1
+		}
+		var ii int
+		if round == 1 {
+			ii = i
+		} else {
+			ii = cache[0]
+		}
+		fmt.Println(list[ii].Name)
+		fmt.Printf("(%v / %v) round:%v\n", len(list)-1-ii+1, cN, round)
 		fmt.Println("是否认识这个单词?(y/n, default is yes)")
 		s := prompt.Input("review > ", completer)
 		idx := 0
 		for k, v := range serve.DB.Cwords.Cword {
-			if list != nil && list[i].Name == v.Cid.String {
+			if list != nil && list[ii].Name == v.Cid.String {
 				idx = k
 			}
 		}
@@ -62,8 +78,13 @@ func RunReview(str string) {
 		} else if s == "exit" || s == "quit" || s == "q" {
 			break
 		}
-		i--
-		N--
+		if round == 2 {
+			cache = cache[1:]
+		} else { //rand==1
+			cache = append(cache, i)
+			i--
+			N--
+		}
 	}
 	fmt.Printf("总共复习了 %v 个单词\n", len(list)-1-i)
 }
