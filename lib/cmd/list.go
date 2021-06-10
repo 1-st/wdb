@@ -25,10 +25,7 @@ func RunList(str string) {
 }
 
 func List() {
-	fmt.Println()
-	fmt.Println("单词:")
-	fmt.Println()
-	printClockInit()
+
 	//单词
 	var list util.PairList
 	var listOK util.PairList
@@ -46,14 +43,7 @@ func List() {
 			})
 		}
 	}
-	list.RSort()
-	PrintList(&list, 1)
-	fmt.Println()
-	fmt.Println()
-	fmt.Println("词组：")
-	fmt.Println()
 
-	printClock2Init()
 	//词组
 	var phrases util.PairList
 	var phrasesOK util.PairList
@@ -71,9 +61,6 @@ func List() {
 			})
 		}
 	}
-	phrases.RSort()
-	PrintList(&phrases, 2)
-	fmt.Println()
 
 	//已完成
 	if len(listOK) != 0 || len(phrasesOK) != 0 {
@@ -101,6 +88,25 @@ func List() {
 		}
 		fmt.Println()
 	}
+
+	//打印词组
+	fmt.Println()
+	fmt.Println("词组：")
+	fmt.Println()
+	printClock2Init()
+	phrases.RSort()
+	PrintList(&phrases, 2)
+	fmt.Println()
+
+	//打印单词
+	fmt.Println()
+	fmt.Println("单词:")
+	fmt.Println()
+	printClockInit()
+	list.RSort()
+	PrintList(&list, 1)
+	fmt.Println()
+	fmt.Println()
 
 	fmt.Printf("单词进度: %v/%v\n", len(listOK), len(list)+len(listOK))
 	fmt.Printf("词组进度: %v/%v\n", len(phrasesOK), len(phrases)+len(phrasesOK))
