@@ -21,6 +21,8 @@ func init() {
 	add(&CmdMap, cmd.RunList, "list", "l", "ls")
 	add(&CmdMap, cmd.RunReview, "review", "r")
 	add(&CmdMap, cmd.RunReviewP, "reviewP", "rp")
+	add(&CmdMap, cmd.RunReviewR, "reviewR", "rr")
+
 	add(&CmdMap, cmd.RunOK, "ok")
 	add(&CmdMap, cmd.RunPrint, "print", "p")
 }
@@ -41,6 +43,7 @@ func completer(d prompt.Document) []prompt.Suggest {
 		{Text: "a", Description: "add"},
 		{Text: "r", Description: "review"},
 		{Text: "rp", Description: "reviewP"},
+		{Text: "rr", Description: "reviewR"},
 	}
 	for _, v := range serve.DB.Cwords.Cword {
 		s = append(s, prompt.Suggest{
