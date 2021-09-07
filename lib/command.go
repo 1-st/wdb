@@ -19,6 +19,8 @@ func init() {
 	add(&CmdMap, cmd.RunDel, "rm", "del")
 	add(&CmdMap, cmd.RunHelp, "help", "h")
 	add(&CmdMap, cmd.RunList, "list", "l", "ls")
+	add(&CmdMap, cmd.RunListSortByAlphabet, "la")
+
 	add(&CmdMap, cmd.RunReview, "review", "r")
 	add(&CmdMap, cmd.RunReviewP, "reviewP", "rp")
 	add(&CmdMap, cmd.RunReviewR, "reviewR", "rr")

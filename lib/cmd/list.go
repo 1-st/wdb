@@ -20,11 +20,41 @@ func RunList(str string) {
 			FindWord(line)
 		}
 	} else {
-		List()
+		List("")
 	}
 }
 
-func List() {
+func RunListSortByAlphabet(str string) {
+	List("string")
+}
+
+func ChangeOrder(list []util.Pair) {
+	column := len(list)/int(LineWord)
+	matrix:= make([][]util.Pair,column)
+	for i:=0;i<column;i++{
+		matrix[i] = make([]util.Pair,LineWord)
+	}
+	index:=0
+	for j:=0;j<int(LineWord);j++{
+		for i:=0;i<column;i++{
+			if index<len(list){
+				matrix[i][j] = list[index]
+				index++
+			}
+		}
+	}
+	index = 0
+	for i:=0;i<column;i++{
+		for j:=0;j<int(LineWord);j++{
+			if index<len(list){
+				list[index] = matrix[i][j]
+				index++
+			}
+		}
+	}
+}
+
+func List(sort string) {
 
 	//单词
 	var list util.PairList
@@ -68,7 +98,12 @@ func List() {
 			fmt.Println()
 			fmt.Println("已完成单词:")
 			fmt.Println()
-			listOK.RSort()
+			if sort == "" {
+				listOK.RSort()
+			} else if sort == "string" {
+				util.AlphaSort(listOK, 0, len(listOK)-1)
+				ChangeOrder(listOK)
+			}
 			printClockInit()
 			for _, v := range listOK {
 				printClock(color.Set(color.FgHiGreen).Sprint("●") + v.Name)
@@ -79,7 +114,12 @@ func List() {
 			fmt.Println()
 			fmt.Println("已完成词组:")
 			fmt.Println()
-			phrasesOK.RSort()
+			if sort == "" {
+				phrasesOK.RSort()
+			} else if sort == "string" {
+				util.AlphaSort(phrasesOK, 0, len(phrasesOK)-1)
+				ChangeOrder(phrasesOK)
+			}
 			printClock2Init()
 			for _, v := range phrasesOK {
 				printClock2(color.Set(color.FgHiGreen).Sprint("●") + v.Name)
@@ -94,7 +134,12 @@ func List() {
 	fmt.Println("词组：")
 	fmt.Println()
 	printClock2Init()
-	phrases.RSort()
+	if sort == "" {
+		phrases.RSort()
+	} else if sort == "string" {
+		util.AlphaSort(phrases, 0, len(phrases)-1)
+		ChangeOrder(phrases)
+	}
 	PrintList(&phrases, 2)
 	fmt.Println()
 
@@ -103,7 +148,12 @@ func List() {
 	fmt.Println("单词:")
 	fmt.Println()
 	printClockInit()
-	list.RSort()
+	if sort == "" {
+		list.RSort()
+	} else if sort == "string" {
+		util.AlphaSort(list, 0, len(list)-1)
+		ChangeOrder(list)
+	}
 	PrintList(&list, 1)
 	fmt.Println()
 	fmt.Println()
